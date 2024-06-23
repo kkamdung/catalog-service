@@ -5,6 +5,19 @@ the books in the bookshop catalog. It's part of the project built in the
 [Cloud Native Spring in Action](https://www.manning.com/books/cloud-native-spring-in-action) book
 by [Thomas Vitale](https://www.thomasvitale.com).
 
+## REST API
+
+| Endpoint	      | Method   | Req. body  | Status | Resp. body     | Description    		   	     |
+|:---------------:|:--------:|:----------:|:------:|:--------------:|:-------------------------------|
+| `/books`        | `GET`    |            | 200    | Book[]         | Get all the books in the catalog. |
+| `/books`        | `POST`   | Book       | 201    | Book           | Add a new book to the catalog. |
+|                 |          |            | 422    |                | A book with the same ISBN already exists. |
+| `/books/{isbn}` | `GET`    |            | 200    | Book           | Get the book with the given ISBN. |
+|                 |          |            | 404    |                | No book with the given ISBN exists. |
+| `/books/{isbn}` | `PUT`    | Book       | 200    | Book           | Update the book with the given ISBN. |
+|                 |          |            | 200    | Book           | Create a book with the given ISBN. |
+| `/books/{isbn}` | `DELETE` |            | 204    |                | Delete the book with the given ISBN. |
+
 ## Useful Commands
 
 | Gradle Command	         | Description                                   |
@@ -18,53 +31,42 @@ by [Thomas Vitale](https://www.thomasvitale.com).
 After building the application, you can also run it from the Java CLI:
 
 ```bash
-java -jar build/libs/catalog-service-0.0.1-SNAPSHOT.jar
+java -jar build/libs/catalog-service-jpa-0.0.1-SNAPSHOT.jar
 ```
 
-## Container tasks
+## Running a PostgreSQL Database
 
-Run Catalog Service as a container
+Run PostgreSQL as a Docker container
 
 ```bash
-docker run --rm --name catalog-service -p 8080:8080 catalog-service:0.0.1-SNAPSHOT
+docker run -d \
+    --name polar-postgres \
+    -e POSTGRES_USER=user \
+    -e POSTGRES_PASSWORD=password \
+    -e POSTGRES_DB=polardb_catalog \
+    -p 5432:5432 \
+    postgres:14.12
 ```
 
 ### Container Commands
 
 | Docker Command	              | Description       |
 |:-------------------------------:|:-----------------:|
-| `docker stop catalog-service`   | Stop container.   |
-| `docker start catalog-service`  | Start container.  |
-| `docker remove catalog-service` | Remove container. |
+| `docker stop polar-postgres-catalog`   | Stop container.   |
+| `docker start polar-postgres-catalog`  | Start container.  |
+| `docker remove polar-postgres-catalog` | Remove container. |
 
-## Kubernetes tasks
+### Database Commands
 
-### Create Deployment for application container
-
-```bash
-kubectl create deployment catalog-service --image=catalog-service:0.0.1-SNAPSHOT
-```
-
-### Create Service for application Deployment
+Start an interactive PSQL console:
 
 ```bash
-kubectl expose deployment catalog-service --name=catalog-service --port=8080
+docker exec -it polar-postgres-catalog psql -U user -d polardb_catalog
 ```
 
-### Port forwarding from localhost to Kubernetes cluster
-
-```bash
-kubectl port-forward service/catalog-service 8000:8080
-```
-
-### Delete Deployment for application container
-
-```bash
-kubectl delete deployment catalog-service
-```
-
-### Delete Service for application container
-
-```bash
-kubectl delete service catalog-service
-```
+| PSQL Command	             | Description                    |
+|:--------------------------:|:------------------------------:|
+| `\list`                    | List all databases.            |
+| `\connect polardb_catalog` | Connect to specific database.  |
+| `\dt`                      | List all tables.               |
+| `\quit`                    | Quit interactive psql console. |
