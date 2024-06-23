@@ -10,3 +10,6 @@ server:
 spring:
   application:
     name: catalog-service
+
+polar:
+  greeting: 로컬 도서 카탈로그에 온 것을 환영합니다!
