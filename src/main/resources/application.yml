@@ -24,5 +24,11 @@ spring:
         max-interval: 2000
         multiplier: 1.1
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
 polar:
   greeting: 로컬 도서 카탈로그에 온 것을 환영합니다!
