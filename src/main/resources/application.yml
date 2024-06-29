@@ -32,9 +32,6 @@ spring:
       maximum-pool-size: 5
   jpa:
     open-in-view: false
-  sql:
-    init:
-      mode: always
 
 management:
   endpoints:
