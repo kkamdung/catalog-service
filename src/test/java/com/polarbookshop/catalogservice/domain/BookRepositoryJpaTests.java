@@ -34,6 +34,7 @@ class BookRepositoryJpaTests {
                 .title("Title")
                 .author("Author")
                 .price(12.90)
+                .publisher("Polarsophia")
                 .build();
 
         entityManager.persist(book);
@@ -51,12 +52,14 @@ class BookRepositoryJpaTests {
                 .title("Title")
                 .author("Author")
                 .price(12.90)
+                .publisher("Polarsophia")
                 .build();
         var book2 = Book.builder()
                 .isbn("1234561236")
                 .title("Another Title")
                 .author("Author")
                 .price(12.90)
+                .publisher("Polarsophia")
                 .build();
 
         entityManager.persist(book1);
@@ -83,6 +86,7 @@ class BookRepositoryJpaTests {
                 .title("Title")
                 .author("Author")
                 .price(12.90)
+                .publisher("Polarsophia")
                 .build();
         entityManager.persist(bookToCrate);
 
@@ -105,6 +109,7 @@ class BookRepositoryJpaTests {
                 .title("Title")
                 .author("Author")
                 .price(12.90)
+                .publisher("Polarsophia")
                 .build();
         entityManager.persist(bookToCreate);
 

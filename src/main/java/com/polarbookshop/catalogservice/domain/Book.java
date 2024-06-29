@@ -40,6 +40,8 @@ public class Book {
     @Positive(message = "The book price must be greater than zero.")
     private Double price;
 
+    private String publisher;
+
     @CreatedDate
     private Instant createdDate;
 

@@ -25,6 +25,7 @@ class BookJsonTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .createdDate(now)
                 .lastModifiedDate(now)
                 .version(21)
@@ -35,6 +36,7 @@ class BookJsonTests {
         assertThat(jsonContent).extractingJsonPathStringValue("@.title").isEqualTo(book.getTitle());
         assertThat(jsonContent).extractingJsonPathStringValue("@.author").isEqualTo(book.getAuthor());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.price").isEqualTo(book.getPrice());
+        assertThat(jsonContent).extractingJsonPathStringValue("@.publisher").isEqualTo(book.getPublisher());
         assertThat(jsonContent).extractingJsonPathStringValue("@.createdDate").isEqualTo(book.getCreatedDate().toString());
         assertThat(jsonContent).extractingJsonPathStringValue("@.lastModifiedDate").isEqualTo(book.getLastModifiedDate().toString());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.version").isEqualTo(book.getVersion());
@@ -49,6 +51,7 @@ class BookJsonTests {
                     "title": "Title",
                     "author": "Author",
                     "price": 9.90,
+                    "publisher": "Polarsophia",
                     "createdDate": "2021-09-07T22:50:37.135029Z",
                     "lastModifiedDate": "2021-09-07T22:50:37.135029Z",
                     "version": 21
@@ -60,6 +63,7 @@ class BookJsonTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .createdDate(instant)
                 .lastModifiedDate(instant)
                 .version(21)

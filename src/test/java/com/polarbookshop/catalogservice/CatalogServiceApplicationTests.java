@@ -23,6 +23,7 @@ class CatalogServiceApplicationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
 
         webTestClient
@@ -45,6 +46,7 @@ class CatalogServiceApplicationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
 
         Book expectedBook = webTestClient
@@ -77,6 +79,7 @@ class CatalogServiceApplicationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
         Book createdBook = webTestClient
                 .post()
@@ -94,6 +97,7 @@ class CatalogServiceApplicationTests {
                 .title(createdBook.getTitle())
                 .author(createdBook.getAuthor())
                 .price(7.95)
+                .publisher("Polarsophia")
                 .build();
 
         webTestClient
@@ -116,6 +120,7 @@ class CatalogServiceApplicationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
 
         webTestClient

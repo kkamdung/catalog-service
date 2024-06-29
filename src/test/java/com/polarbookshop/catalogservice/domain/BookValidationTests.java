@@ -29,6 +29,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).isEmpty();
@@ -41,6 +42,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
@@ -54,6 +56,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(2);
@@ -72,6 +75,7 @@ public class BookValidationTests {
                 .title("")
                 .author("Author")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
@@ -86,6 +90,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("")
                 .price(9.90)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
@@ -100,6 +105,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("Author")
                 .price(null)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
@@ -114,6 +120,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("Author")
                 .price(0.0)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
@@ -128,6 +135,7 @@ public class BookValidationTests {
                 .title("Title")
                 .author("Author")
                 .price(-9.90)
+                .publisher("Polarsophia")
                 .build();
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
