@@ -39,6 +39,8 @@ public class BookService {
                             .title(book.getTitle())
                             .author(book.getAuthor())
                             .price(book.getPrice())
+                            .createdDate(existingBook.getCreatedDate())
+                            .lastModifiedDate(existingBook.getLastModifiedDate())
                             .version(existingBook.getVersion())
                             .build();
 
