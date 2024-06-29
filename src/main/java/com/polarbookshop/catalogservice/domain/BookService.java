@@ -19,8 +19,8 @@ public class BookService {
     }
 
     public Book addBookToCatalog(Book book) {
-        if (bookRepository.existsByIsbn(book.isbn())) {
-            throw new BookAlreadyExistsException(book.isbn());
+        if (bookRepository.existsByIsbn(book.getIsbn())) {
+            throw new BookAlreadyExistsException(book.getIsbn());
         }
 
         return bookRepository.save(book);
@@ -33,11 +33,13 @@ public class BookService {
     public Book editBookDetails(String isbn, Book book) {
         return bookRepository.findByIsbn(isbn)
                 .map(existingBook -> {
-                    var bookToUpdate = new Book(
-                            existingBook.isbn(),
-                            book.title(),
-                            book.author(),
-                            book.price());
+                    var bookToUpdate = Book.builder()
+                            .isbn(existingBook.getIsbn())
+                            .title(book.getTitle())
+                            .author(book.getAuthor())
+                            .price(book.getPrice())
+                            .build();
+
                     return bookRepository.save(bookToUpdate);
                 })
                 .orElseGet(() -> addBookToCatalog(book));

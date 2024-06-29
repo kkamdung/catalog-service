@@ -17,8 +17,18 @@ public class BookDataLoader {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadBookTestData() {
-        var book1 = new Book("1234567891", "Northern Lights", "Lyra Silverstar", 9.90);
-        var book2 = new Book("1234567892", "Polar Journey", "Iorek Polarson", 12.90);
+        var book1 = Book.builder()
+                .isbn("1234567891")
+                .title("Northern Lights")
+                .author("Lyra Silverstar")
+                .price(9.90)
+                .build();
+        var book2 = Book.builder()
+                .isbn("1234567892")
+                .title("Polar Journey")
+                .author("Iorek Polarson")
+                .price(12.90)
+                .build();
 
         bookRepository.save(book1);
         bookRepository.save(book2);
