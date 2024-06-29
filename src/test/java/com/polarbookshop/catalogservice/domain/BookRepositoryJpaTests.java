@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,14 +44,21 @@ class BookRepositoryJpaTests {
         assertThat(actualBook.get().getIsbn()).isEqualTo(book.getIsbn());
     }
 
-}
-/*
-class BookRepositoryJdbcTests {
-
     @Test
     void findAllBooks() {
-        var book1 = Book.of("1234561235", "Title", "Author", 12.90, "Polarsophia");
-        var book2 = Book.of("1234561236", "Another Title", "Author", 12.90, "Polarsophia");
+        var book1 = Book.builder()
+                .isbn("1234561235")
+                .title("Title")
+                .author("Author")
+                .price(12.90)
+                .build();
+        var book2 = Book.builder()
+                .isbn("1234561236")
+                .title("Another Title")
+                .author("Author")
+                .price(12.90)
+                .build();
+
         entityManager.persist(book1);
         entityManager.persist(book2);
 
@@ -58,10 +66,8 @@ class BookRepositoryJdbcTests {
 
         assertThat(StreamSupport.stream(actualBooks.spliterator(), true)
                 .filter(book -> book.getIsbn().equals(book1.getIsbn()) || book.getIsbn().equals(book2.getIsbn()))
-                .collect(Collectors.toList())).hasSize(2);
+                .toList()).hasSize(2);
     }
-
-
 
     @Test
     void findBookByIsbnWhenNotExisting() {
@@ -72,8 +78,13 @@ class BookRepositoryJdbcTests {
     @Test
     void existsByIsbnWhenExisting() {
         var bookIsbn = "1234561239";
-        var bookToCreate = Book.of(bookIsbn, "Title", "Author", 12.90, "Polarsophia");
-        entityManager.persist(bookToCreate);
+        var bookToCrate = Book.builder()
+                .isbn(bookIsbn)
+                .title("Title")
+                .author("Author")
+                .price(12.90)
+                .build();
+        entityManager.persist(bookToCrate);
 
         boolean existing = bookRepository.existsByIsbn(bookIsbn);
 
@@ -89,14 +100,17 @@ class BookRepositoryJdbcTests {
     @Test
     void deleteByIsbn() {
         var bookIsbn = "1234561241";
-        var bookToCreate = Book.of(bookIsbn, "Title", "Author", 12.90, "Polarsophia");
-        var persistedBook = entityManager.persist(bookToCreate);
+        var bookToCreate = Book.builder()
+                .isbn(bookIsbn)
+                .title("Title")
+                .author("Author")
+                .price(12.90)
+                .build();
+        entityManager.persist(bookToCreate);
 
         bookRepository.deleteByIsbn(bookIsbn);
 
-        assertThat(entityManager.find(Book.class, persistedBook.getId())).isNull();
+        assertThat(entityManager.find(Book.class, bookIsbn)).isNull();
     }
 
 }
-
- */
