@@ -5,6 +5,8 @@ COPY ${JAR_FILE} catalog-service.jar
 RUN java -Djarmode=layertools -jar catalog-service.jar extract
 
 FROM amazoncorretto:17
+RUN yum install -y /usr/sbin/adduser && useradd spring
+USER spring
 WORKDIR workspace
 COPY --from=builder workspace/dependencies/ ./
 COPY --from=builder workspace/spring-boot-loader/ ./
