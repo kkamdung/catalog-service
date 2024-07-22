@@ -1,0 +1,10 @@
+polar:
+  greeting: 개발 Kubernetes 환경의 도서 카탈로그에 온 것을 환영합니다!
+spring:
+  datasource:
+    url: jdbc:postgresql://polar-postgres/polardb_catalog
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://polar-keycloak/realms/PolarBookshop
