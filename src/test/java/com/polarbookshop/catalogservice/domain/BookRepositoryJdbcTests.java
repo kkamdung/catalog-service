@@ -28,8 +28,8 @@ class BookRepositoryJdbcTests {
 
     @Test
     void findAllBooks() {
-        Book book1 = Book.of("1234561235", "Title", "Author", 12.90);
-        Book book2 = Book.of("1234561236", "Another Title", "Author", 12.90);
+        Book book1 = Book.of("1234561235", "Title", "Author", 12.90, "Polarsophia");
+        Book book2 = Book.of("1234561236", "Another Title", "Author", 12.90, "Polarsophia");
 
         jdbcAggregateTemplate.insert(book1);
         jdbcAggregateTemplate.insert(book2);
@@ -44,7 +44,7 @@ class BookRepositoryJdbcTests {
     @Test
     void findBookByIsbnWhenExisting() {
         String bookIsbn = "1234561237";
-        Book book = Book.of(bookIsbn, "Title", "Author", 12.90);
+        Book book = Book.of(bookIsbn, "Title", "Author", 12.90, "Polarsophia");
         jdbcAggregateTemplate.insert(book);
 
         Optional<Book> actualBook = bookRepository.findByIsbn(bookIsbn);
@@ -62,7 +62,7 @@ class BookRepositoryJdbcTests {
     @Test
     void existsByIsbnWhenExisting() {
         String bookIsbn = "1234561239";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 12.90);
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 12.90, "Polarsophia");
         jdbcAggregateTemplate.insert(bookToCreate);
 
         boolean existing = bookRepository.existsByIsbn(bookIsbn);
@@ -79,7 +79,7 @@ class BookRepositoryJdbcTests {
     @Test
     void deleteByIsbn() {
         String bookIsbn = "1234561241";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 12.90);
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 12.90, "Polarsophia");
         Book persistedBook = jdbcAggregateTemplate.insert(bookToCreate);
 
         bookRepository.deleteByIsbn(bookIsbn);
