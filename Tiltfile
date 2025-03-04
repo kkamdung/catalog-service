@@ -1,8 +1,8 @@
 gradlew = './gradlew'
-expected_ref = "$EXPECTED_REF"
-if os.name == "nt":
-    gradlew = "gradlew.bat"
-    expected_ref = "%EXPECTED_REF%"
+expected_ref = '$EXPECTED_REF'
+if os.name == 'nt':
+    gradlew = 'gradlew.bat'
+    expected_ref = '%EXPECTED_REF%'
 
 
 # 빌드
