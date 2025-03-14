@@ -40,7 +40,7 @@ class CatalogServiceApplicationTests {
     @DynamicPropertySource
     static void dynamicProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.security.oauth2.resourceserver.jwt.issuer-uri",
-                () -> keycloakContainer.getAuthServerUrl() + "/realms/PolarbookShop");
+                () -> keycloakContainer.getAuthServerUrl() + "/realms/PolarBookshop");
     }
 
     @BeforeAll
