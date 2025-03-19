@@ -1,5 +1,4 @@
 polar:
-#  greeting: Welcome to the book catalog from Kubernetes!
   greeting: Welcome to the book catalog from a development Kubernetes environment!
 spring:
   datasource:

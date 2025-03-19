@@ -47,7 +47,7 @@ jobs:
           kubeconform: latest
       - name: Validate Kubernetes manifests
         run: |
-          kustomize build k8s | kubeconform --strict --verbose k8s
+          kustomize build k8s | kubeconform --strict --verbose -
   package:
     name: Package and Publish
     if: ${{ github.ref == 'refs/heads/main' }}
