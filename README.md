@@ -1,34 +1,70 @@
-# Chapter 02 - Begin
+# Catalog Service
 
-In this chapter, you'll build a Catalog Service application. You can initialize a Spring Boot project using your
-favorite method. This guide describes how to do that with the Spring Initializr application and with its REST API.
-Either way, you'll get a zip archive that you can extract and import in your IDE.
+This application is part of the Polar Bookshop system and provides the functionality for managing
+the books in the bookshop catalog. It's part of the project built in the
+[Cloud Native Spring in Action](https://www.manning.com/books/cloud-native-spring-in-action) book
+by [Thomas Vitale](https://www.thomasvitale.com).
 
-## Initialize Catalog Service with Spring Initializr - Website
+## Useful Commands
 
-From the [Spring Initialzr](https://start.spring.io/) website, choose the following:
+| Gradle Command	         | Description                                   |
+|:---------------------------|:----------------------------------------------|
+| `./gradlew bootRun`        | Run the application.                          |
+| `./gradlew build`          | Build the application.                        |
+| `./gradlew test`           | Run tests.                                    |
+| `./gradlew bootJar`        | Package the application as a JAR.             |
+| `./gradlew bootBuildImage` | Package the application as a container image. |
 
-* _Project_: Gradle (or Maven)
-* _Spring Boot_: 3.3.0
-* _Group_: `com.polarbookshop`
-* _Artifact_: `catalog-service`
-* _Name_: catalog-service
-* _Package name_: `com.polarbookshop.catalogservice`
-* _Java version_: 17
-* _Dependencies_: Spring Web
-
-Then, click "Generate" to download the `catalog-service.zip` archive containing the project.
-
-## Initialize Catalog Service with Spring Initializr - REST API
-
-If you prefer using the REST API offered by Spring Initializr, run the following command to initialize a project with Gradle as the build tool:
+After building the application, you can also run it from the Java CLI:
 
 ```bash
-curl https://start.spring.io/starter.zip -d groupId=com.polarbookshop -d artifactId=catalog-service -d name=catalog-service -d packageName=com.polarbookshop.catalogservice -d dependencies=web -d javaVersion=17 -d bootVersion=3.3.0 -d type=gradle-project -o catalog-service.zip
+java -jar build/libs/catalog-service-0.0.1-SNAPSHOT.jar
 ```
 
-For using Maven instead of Gradle:
+## Container tasks
+
+Run Catalog Service as a container
 
 ```bash
-curl https://start.spring.io/starter.zip -d groupId=com.polarbookshop -d artifactId=catalog-service -d name=catalog-service -d packageName=com.polarbookshop.catalogservice -d dependencies=web -d javaVersion=17 -d bootVersion=3.3.0 -d type=maven-project -o catalog-service.zip
+docker run --rm --name catalog-service -p 8080:8080 catalog-service:0.0.1-SNAPSHOT
+```
+
+### Container Commands
+
+| Docker Command	              | Description       |
+|:-------------------------------:|:-----------------:|
+| `docker stop catalog-service`   | Stop container.   |
+| `docker start catalog-service`  | Start container.  |
+| `docker remove catalog-service` | Remove container. |
+
+## Kubernetes tasks
+
+### Create Deployment for application container
+
+```bash
+kubectl create deployment catalog-service --image=catalog-service:0.0.1-SNAPSHOT
+```
+
+### Create Service for application Deployment
+
+```bash
+kubectl expose deployment catalog-service --name=catalog-service --port=8080
+```
+
+### Port forwarding from localhost to Kubernetes cluster
+
+```bash
+kubectl port-forward service/catalog-service 8000:8080
+```
+
+### Delete Deployment for application container
+
+```bash
+kubectl delete deployment catalog-service
+```
+
+### Delete Service for application container
+
+```bash
+kubectl delete service catalog-service
 ```
