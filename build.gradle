@@ -23,9 +23,14 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "2024.0.1")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.cloud:spring-cloud-config-client'
 
     compileOnly 'org.projectlombok:lombok'
 
@@ -39,6 +44,12 @@ dependencies {
 
 bootRun {
     systemProperty 'spring.profiles.active', 'testdata'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('test') {
