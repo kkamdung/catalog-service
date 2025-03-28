@@ -37,6 +37,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+bootRun {
+    systemProperty 'spring.profiles.active', 'testdata'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
