@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
 
+import java.time.Instant;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
@@ -17,7 +19,8 @@ public class BookJsonTests {
 
     @Test
     void testSerialize() throws Exception {
-        Book book = new Book(1L, "1234567890", "Title", "Author", 9.90, 20);
+        Instant now = Instant.now();
+        Book book = new Book(394L, "1234567890", "Title", "Author", 9.90, now, now, 20);
         JsonContent<Book> jsonContent = json.write(book);
 
         assertThat(jsonContent).extractingJsonPathNumberValue("@.id")
@@ -30,26 +33,33 @@ public class BookJsonTests {
                 .isEqualTo(book.author());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.price")
                 .isEqualTo(book.price());
+        assertThat(jsonContent).extractingJsonPathStringValue("@.createdDate")
+                .isEqualTo(book.createdDate().toString());
+        assertThat(jsonContent).extractingJsonPathStringValue("@.lastModifiedDate")
+                .isEqualTo(book.lastModifiedDate().toString());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.version")
                 .isEqualTo(book.version());
     }
 
     @Test
     void testDeserialize() throws Exception {
+        Instant instant = Instant.parse("2021-09-07T22:50:37.135029Z");
         String content = """
                 {
-                    "id": 2,
+                    "id": 394,
                     "isbn": "1234567890",
                     "title": "Title",
                     "author": "Author",
                     "price": 9.90,
+                    "createdDate": "2021-09-07T22:50:37.135029Z",
+                    "lastModifiedDate": "2021-09-07T22:50:37.135029Z",
                     "version": 21
                 }
                 """;
 
         assertThat(json.parse(content))
                 .usingRecursiveComparison()
-                .isEqualTo(new Book(2L, "1234567890", "Title", "Author", 9.90, 21));
+                .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, instant, instant, 21));
     }
 
 }
