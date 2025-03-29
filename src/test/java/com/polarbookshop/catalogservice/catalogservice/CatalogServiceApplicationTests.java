@@ -19,7 +19,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenGetRequestWithIdThenBookReturned() {
         String bookIsbn = "1231231230";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarshopia");
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
         Book expectedBook = webTestClient
                 .post()
                 .uri("/books")
@@ -42,7 +42,7 @@ class CatalogServiceApplicationTests {
 
     @Test
     void whenPostRequestThenBookCreated() {
-        Book expectedBook = Book.of("1231231231", "Title", "Author", 9.90, "Polarshopia");
+        Book expectedBook = Book.of("1231231231", "Title", "Author", 9.90, "Polarsophia");
 
         webTestClient
                 .post()
@@ -59,7 +59,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenPutRequestThenBookUpdated() {
         String bookIsbn = "1231231232";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarshopia");
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
         Book createdBook = webTestClient
                 .post()
                 .uri("/books")
@@ -69,7 +69,8 @@ class CatalogServiceApplicationTests {
                 .expectBody(Book.class).value(book -> assertThat(book).isNotNull())
                 .returnResult().getResponseBody();
 
-        Book bookToUpdate = Book.of(createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95, "Polarshopia");
+        Book bookToUpdate = new Book(createdBook.id(), createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95,
+                createdBook.publisher(), createdBook.createdDate(), createdBook.lastModifiedDate(), createdBook.version());
 
         webTestClient
                 .put()
@@ -86,7 +87,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenDeleteRequestThenBookDeleted() {
         String bookIsbn = "1231231233";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarshopia");
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
         webTestClient
                 .post()
                 .uri("/books")
@@ -107,7 +108,6 @@ class CatalogServiceApplicationTests {
                 .expectStatus().isNotFound()
                 .expectBody(String.class).value(errorMessage ->
                         assertThat(errorMessage).isEqualTo("The book with ISBN " + bookIsbn + " was not found."));
-
     }
 
 }

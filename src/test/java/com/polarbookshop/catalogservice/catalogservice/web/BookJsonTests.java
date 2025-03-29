@@ -12,7 +12,7 @@ import java.time.Instant;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
-public class BookJsonTests {
+class BookJsonTests {
 
     @Autowired
     private JacksonTester<Book> json;
@@ -20,7 +20,7 @@ public class BookJsonTests {
     @Test
     void testSerialize() throws Exception {
         Instant now = Instant.now();
-        Book book = new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarshopia", now, now, 20);
+        Book book = new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", now, now, 21);
         JsonContent<Book> jsonContent = json.write(book);
 
         assertThat(jsonContent).extractingJsonPathNumberValue("@.id")
@@ -53,7 +53,7 @@ public class BookJsonTests {
                     "title": "Title",
                     "author": "Author",
                     "price": 9.90,
-                    "publisher": "Polarshopia",
+                    "publisher": "Polarsophia",
                     "createdDate": "2021-09-07T22:50:37.135029Z",
                     "lastModifiedDate": "2021-09-07T22:50:37.135029Z",
                     "version": 21
@@ -62,7 +62,7 @@ public class BookJsonTests {
 
         assertThat(json.parse(content))
                 .usingRecursiveComparison()
-                .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarshopia", instant, instant, 21));
+                .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", instant, instant, 21));
     }
 
 }
