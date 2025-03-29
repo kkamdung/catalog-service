@@ -19,7 +19,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenGetRequestWithIdThenBookReturned() {
         String bookIsbn = "1231231230";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90);
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarshopia");
         Book expectedBook = webTestClient
                 .post()
                 .uri("/books")
@@ -42,7 +42,7 @@ class CatalogServiceApplicationTests {
 
     @Test
     void whenPostRequestThenBookCreated() {
-        Book expectedBook = Book.of("1231231231", "Title", "Author", 9.90);
+        Book expectedBook = Book.of("1231231231", "Title", "Author", 9.90, "Polarshopia");
 
         webTestClient
                 .post()
@@ -59,7 +59,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenPutRequestThenBookUpdated() {
         String bookIsbn = "1231231232";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90);
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarshopia");
         Book createdBook = webTestClient
                 .post()
                 .uri("/books")
@@ -69,7 +69,7 @@ class CatalogServiceApplicationTests {
                 .expectBody(Book.class).value(book -> assertThat(book).isNotNull())
                 .returnResult().getResponseBody();
 
-        Book bookToUpdate = Book.of(createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95);
+        Book bookToUpdate = Book.of(createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95, "Polarshopia");
 
         webTestClient
                 .put()
@@ -86,7 +86,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenDeleteRequestThenBookDeleted() {
         String bookIsbn = "1231231233";
-        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90);
+        Book bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarshopia");
         webTestClient
                 .post()
                 .uri("/books")
