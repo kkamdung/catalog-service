@@ -54,6 +54,11 @@ bootRun {
     systemProperty 'spring.profiles.active', 'testdata'
 }
 
+bootBuildImage {
+    imageName = "${project.name}"
+    environment = ["BP_JAVA_VERSION": "21"]
+}
+
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
