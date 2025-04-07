@@ -154,7 +154,8 @@ class CatalogServiceApplicationTests {
                 .returnResult().getResponseBody();
 
         Book bookToUpdate = new Book(createdBook.id(), createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95,
-                createdBook.publisher(), createdBook.createdDate(), createdBook.lastModifiedDate(), createdBook.version());
+                createdBook.publisher(), createdBook.createdBy(), createdBook.createdDate(),
+                createdBook.lastModifiedBy(), createdBook.lastModifiedDate(), createdBook.version());
 
         webTestClient
                 .put()

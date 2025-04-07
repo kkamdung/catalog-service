@@ -20,7 +20,7 @@ class BookJsonTests {
     @Test
     void testSerialize() throws Exception {
         Instant now = Instant.now();
-        Book book = new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", now, now, 21);
+        Book book = new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", "john", now, "mary", now, 21);
         JsonContent<Book> jsonContent = json.write(book);
 
         assertThat(jsonContent).extractingJsonPathNumberValue("@.id")
@@ -35,8 +35,12 @@ class BookJsonTests {
                 .isEqualTo(book.price());
         assertThat(jsonContent).extractingJsonPathStringValue("@.publisher")
                 .isEqualTo(book.publisher());
+        assertThat(jsonContent).extractingJsonPathStringValue("@.createdBy")
+                .isEqualTo(book.createdBy());
         assertThat(jsonContent).extractingJsonPathStringValue("@.createdDate")
                 .isEqualTo(book.createdDate().toString());
+        assertThat(jsonContent).extractingJsonPathStringValue("@.lastModifiedBy")
+                .isEqualTo(book.lastModifiedBy());
         assertThat(jsonContent).extractingJsonPathStringValue("@.lastModifiedDate")
                 .isEqualTo(book.lastModifiedDate().toString());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.version")
@@ -54,7 +58,9 @@ class BookJsonTests {
                     "author": "Author",
                     "price": 9.90,
                     "publisher": "Polarsophia",
+                    "createdBy": "john",
                     "createdDate": "2021-09-07T22:50:37.135029Z",
+                    "lastModifiedBy": "john",
                     "lastModifiedDate": "2021-09-07T22:50:37.135029Z",
                     "version": 21
                 }
@@ -62,7 +68,7 @@ class BookJsonTests {
 
         assertThat(json.parse(content))
                 .usingRecursiveComparison()
-                .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", instant, instant, 21));
+                .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", "john", instant, "john", instant, 21));
     }
 
 }
