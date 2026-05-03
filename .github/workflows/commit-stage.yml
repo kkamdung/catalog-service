@@ -26,6 +26,8 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
+        env:
+          JAVA_TOOL_OPTIONS: "--enable-native-access=ALL-UNNAMED"
       - name: Code vulnerability scanning
         uses: anchore/scan-action@v7
         id: scan
