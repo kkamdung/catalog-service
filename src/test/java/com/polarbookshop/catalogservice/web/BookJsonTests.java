@@ -38,8 +38,7 @@ class BookJsonTests {
                     "isbn": "1234567890",
                     "title": "Title",
                     "author": "Author",
-                    "price": 9.90,
-                    "version": 0
+                    "price": 9.90
                 }
                 """;
 
