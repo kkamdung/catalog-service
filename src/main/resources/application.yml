@@ -43,11 +43,14 @@ logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
+info:
+  system: Polar Bookshop
+
 management:
   endpoints:
     web:
       exposure:
-        include: refresh, health
+        include: flyway, refresh, health, prometheus
   endpoint:
     health:
       show-details: always
