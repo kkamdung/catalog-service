@@ -26,6 +26,7 @@ repositories {
 
 ext {
     set('springCloudVersion', "2025.1.2")
+    set('testKeycloakVersion', "4.2.1")
 }
 
 dependencies {
@@ -47,6 +48,10 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql:1.21.4'
     testImplementation 'org.springframework.boot:spring-boot-webtestclient'
     testImplementation 'org.springframework.boot:spring-boot-data-jdbc-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation "com.github.dasniko:testcontainers-keycloak:${testKeycloakVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testCompileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testAnnotationProcessor 'org.projectlombok:lombok'
